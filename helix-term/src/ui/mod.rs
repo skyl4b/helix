@@ -12,6 +12,7 @@ mod prompt;
 mod spinner;
 mod statusline;
 mod text;
+pub mod copilot_picker;
 
 use crate::compositor::{Component, Compositor};
 use crate::filter_picker_entry;

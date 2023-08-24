@@ -376,6 +376,8 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "tab" => smart_tab,
         "S-tab" => insert_tab,
 
+        "C-n" => copilot_picker,
+
         "up" => move_visual_line_up,
         "down" => move_visual_line_down,
         "left" => move_char_left,

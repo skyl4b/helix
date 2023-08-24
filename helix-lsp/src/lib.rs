@@ -3,6 +3,7 @@ pub mod file_event;
 pub mod jsonrpc;
 pub mod snippet;
 mod transport;
+pub mod copilot_types;
 
 pub use client::Client;
 pub use futures_executor::block_on;
@@ -538,6 +539,24 @@ pub mod util {
                 (start, end, replacement)
             }),
         )
+    }
+    
+    pub fn generate_transactions_from_copilot_response(
+        doc: &Rope,
+        response: copilot_types::CompletionResponse,
+        offset_encoding: OffsetEncoding,
+        ) -> Vec<Transaction> {
+            response
+                .completions
+                .into_iter()
+                .map(|completion| {
+                    let edit = lsp::TextEdit {
+                            range: completion.range,
+                            new_text: completion.text,
+                        };
+                    generate_transaction_from_edits(doc, vec![edit], offset_encoding)
+                })
+                .collect()
     }
 }
 
